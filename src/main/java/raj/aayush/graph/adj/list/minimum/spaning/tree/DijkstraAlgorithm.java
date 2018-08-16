@@ -9,15 +9,7 @@ import raj.aayush.graph.adj.list.Graph;
 
 public class DijkstraAlgorithm {
 	public static void Dijkstra(Graph gph, int source) {
-		class AdjNodeComparator implements Comparator<AdjNode> {
-			public int compare(AdjNode x, AdjNode y) {
-				if (x.getCost() < y.getCost())
-					return -1;
-				if (x.getCost() > y.getCost())
-					return 1;
-				return 0;
-			}
-		}
+		
 		;
 
 		int[] previous = new int[gph.getCount()];

@@ -5,7 +5,6 @@ import raj.aayush.linked.list.LinkedList;
 import raj.aayush.red.black.tree.RedBlackTree;
 
 /**
- * Created by debasishc on 21/12/16.
  */
 public class AdjacencyMatrixGraphWithSparseVertex<V,E> implements Graph<V, E> {
 
@@ -76,7 +75,7 @@ public class AdjacencyMatrixGraphWithSparseVertex<V,E> implements Graph<V, E> {
     }
 
     @Override
-    public LinkedList getNeighbors(int source) {
+    public LinkedList<Integer> getNeighbors(int source) {
         LinkedList<Integer> neighborList = new LinkedList<>();
         for(int i=0;i<adjacencyMatrix.length;i++){
             if(adjacencyMatrix[source][i]!=null){
@@ -91,7 +90,8 @@ public class AdjacencyMatrixGraphWithSparseVertex<V,E> implements Graph<V, E> {
         vertexValues[vertex] = value;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public V getVertexValue(int vertex) {
         if(vertexValues[vertex]!=nullVertex)
             return (V)vertexValues[vertex];
@@ -107,7 +107,8 @@ public class AdjacencyMatrixGraphWithSparseVertex<V,E> implements Graph<V, E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public E getEdgeValue(int source, int target) {
         if(adjacencyMatrix[source][target] != nullEdge) {
             return (E) adjacencyMatrix[source][target];
@@ -137,7 +138,7 @@ public class AdjacencyMatrixGraphWithSparseVertex<V,E> implements Graph<V, E> {
         return vertexValues.length-1;
     }
 
-    public static void main(String [] args){
+	public static void main(String [] args){
         AdjacencyMatrixGraphWithSparseVertex<Character, Integer>
                 graph = new AdjacencyMatrixGraphWithSparseVertex<>(true);
         for(int i=0;i<10;i++){

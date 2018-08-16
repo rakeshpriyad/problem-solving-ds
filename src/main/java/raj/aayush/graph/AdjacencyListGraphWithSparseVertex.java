@@ -24,7 +24,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
             this.target = target;
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
@@ -64,7 +65,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         return newVertices.length-1;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void removeVertex(int id) {
 
         Vertex sVertex = (Vertex) vertices[id];
@@ -80,7 +82,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         vertices[id] = null;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void addEdge(int source, int target) {
         Vertex sVertex = (Vertex) vertices[source];
         Edge sEdge = sVertex.edges.insertValue(new Edge(target)).getValue();
@@ -94,7 +97,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void removeEdge(int source, int target) {
         Vertex sVertex = (Vertex) vertices[source];
         Edge deletedEdge = sVertex.edges.deleteValue(new Edge(target)).getValue();
@@ -106,19 +110,22 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public boolean isAdjacent(int source, int target) {
         Vertex sVertex = (Vertex) vertices[source];
         return sVertex.edges.searchValue(new Edge(target))!=null;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public LinkedList<Integer> getNeighbors(int source) {
         Vertex sVertex = (Vertex) vertices[source];
         return sVertex.neighbors;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void setVertexValue(int vertex, V value) {
         Vertex sVertex = (Vertex) vertices[vertex];
         if(sVertex==null){
@@ -128,7 +135,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public V getVertexValue(int vertex) {
         Vertex sVertex = (Vertex) vertices[vertex];
         if(sVertex==null){
@@ -138,7 +146,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void setEdgeValue(int source, int target, E value) {
         Vertex sVertex = (Vertex) vertices[source];
         Vertex tVertex = (Vertex) vertices[target];
@@ -158,7 +167,8 @@ public class AdjacencyListGraphWithSparseVertex<V,E> implements Graph<V,E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public E getEdgeValue(int source, int target) {
         Vertex sVertex = (Vertex) vertices[source];
         Vertex tVertex = (Vertex) vertices[target];

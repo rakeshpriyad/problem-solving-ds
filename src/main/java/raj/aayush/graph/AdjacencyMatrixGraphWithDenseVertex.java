@@ -204,7 +204,8 @@ public class AdjacencyMatrixGraphWithDenseVertex<V,E> implements Graph<V, E> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public E getEdgeValue(int source, int target) {
         BinaryTree.Node<GraphVertex<V>> sNode = vertices.searchValue(
                 new GraphVertex<V>(source, null));

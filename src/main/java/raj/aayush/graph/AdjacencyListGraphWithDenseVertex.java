@@ -2,14 +2,11 @@ package raj.aayush.graph;
 
 import raj.aayush.binary.search.tree.BinarySearchTree;
 import raj.aayush.binary.tree.BinaryTree;
-import raj.aayush.graph.AdjacencyListGraphWithDenseVertex.Vertex;
-import raj.aayush.graph.Graph.Edge;
 import raj.aayush.linked.list.DoublyLinkedList;
 import raj.aayush.linked.list.LinkedList;
 import raj.aayush.red.black.tree.RedBlackTree;
 
 /**
- * Created by debasishc on 20/12/16.
  */
 public class AdjacencyListGraphWithDenseVertex<V,E> implements Graph<V,E> {
     int nextId;
@@ -23,7 +20,8 @@ public class AdjacencyListGraphWithDenseVertex<V,E> implements Graph<V,E> {
             this.target = target;
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;

@@ -1,10 +1,11 @@
-package raj.aayush.queue;
+package raj.aayush.heap;
 
 import java.util.Comparator;
 import java.util.Iterator;
 
+import raj.aayush.queue.PriorityQueue;
+
 /**
- * Created by debasishc on 7/11/16.
  */
 public class LinkedHeap<E> implements PriorityQueue<E>{
     @Override

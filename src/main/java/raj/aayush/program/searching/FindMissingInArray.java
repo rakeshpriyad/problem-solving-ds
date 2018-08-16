@@ -2,7 +2,6 @@ package raj.aayush.program.searching;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class FindMissingInArray {
 
@@ -61,7 +60,6 @@ already seen and we can find the missing element in just one scan.
 	public static int findMissingNumber3(int[] arr, int size) {
 		HashMap<Integer, Integer> valMap= new HashMap<Integer, Integer>();
 		//HashSet<Integer> valSet = new HashSet<Integer>();
-		int j=1;
 		for (int i = 0; i <= size; i++) {
 			if(valMap.containsKey(arr[i])) {
 				valMap.put(arr[i], arr[i]);

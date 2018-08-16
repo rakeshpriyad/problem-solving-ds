@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import raj.aayush.queue.LinkedHeap;
+import raj.aayush.heap.LinkedHeap;
 import raj.aayush.queue.PriorityQueue;
 
 /**
@@ -12,23 +12,35 @@ import raj.aayush.queue.PriorityQueue;
 public class LinkedList<E> implements Iterable<E> {
 	protected int length = 0;
 	protected Node<E>[] lastModifiedNode;
-	protected Node<E> first;
-	protected Node<E> last;
+	protected Node<E> head;
+	protected Node<E> tail;
 
 	public int getLength() {
 		return length;
 	}
 
 	public void appendAllLast(LinkedList<E> anotherList) {
-		if (first == null) {
-			first = anotherList.first;
-			last = anotherList.last;
+		if (this.head == null) {
+			this.head = anotherList.head;
+			this.tail = anotherList.tail;
 		} else {
-			last.next = anotherList.first;
-			last = anotherList.last;
+			this.tail.next = anotherList.head;
+			this.tail = anotherList.tail;
 		}
-		length += anotherList.length;
+		this.length += anotherList.length;
 
+	}
+
+	public E head() {
+		return this.head.value;
+	}
+	
+	/*public LinkedList<Node<E>> tail() {
+		return new LinkedList<Node<E>>().appendLast(this.tail);
+	}*/
+
+	public boolean isEmpty() {
+		return this.head == null ? true : false;
 	}
 
 	public static void main(String[] args) {
@@ -93,10 +105,10 @@ public class LinkedList<E> implements Iterable<E> {
 	public Node<E> appendFirst(E value) {
 		Node<E> node = getNewNode();
 		node.value = value;
-		node.next = first;
-		first = node;
+		node.next = head;
+		head = node;
 		if (length == 0)
-			last = node;
+			tail = node;
 		length++;
 		return node;
 	}
@@ -104,11 +116,11 @@ public class LinkedList<E> implements Iterable<E> {
 	public Node<E> appendLast(E value) {
 		Node<E> node = getNewNode();
 		node.value = value;
-		if (last != null)
-			last.next = node;
-		last = node;
-		if (first == null) {
-			first = node;
+		if (tail != null)
+			tail.next = node;
+		tail = node;
+		if (head == null) {
+			head = node;
 		}
 
 		length++;
@@ -124,7 +136,7 @@ public class LinkedList<E> implements Iterable<E> {
 		} else if (index == 0) {
 			return appendFirst(value);
 		} else {
-			Node<E> prev = first;
+			Node<E> prev = head;
 			while (index > 1) {
 				index--;
 				prev = prev.next;
@@ -141,31 +153,31 @@ public class LinkedList<E> implements Iterable<E> {
 		if (length == 0) {
 			throw new NoSuchElementException();
 		}
-		return first.value;
+		return head.value;
 	}
 
 	public E getLast() {
 		if (length == 0) {
 			throw new NoSuchElementException();
 		}
-		return last.value;
+		return tail.value;
 	}
 
 	public Node<E> removeFirst() {
 		if (length == 0) {
 			throw new NoSuchElementException();
 		}
-		Node<E> origFirst = first;
-		first = first.next;
+		Node<E> origFirst = head;
+		head = head.next;
 		length--;
 		if (length == 0) {
-			last = null;
+			tail = null;
 		}
 		return origFirst;
 	}
 
 	public E findAtIndex(int index) {
-		Node<E> result = first;
+		Node<E> result = head;
 		while (index >= 0) {
 			if (result == null) {
 				throw new NoSuchElementException();
@@ -185,19 +197,19 @@ public class LinkedList<E> implements Iterable<E> {
 		}
 
 		if (index == 0) {
-			Node<E> nodeRemoved = first;
+			Node<E> nodeRemoved = head;
 			removeFirst();
 			return nodeRemoved;
 		}
 
-		Node<E> justBeforeIt = first;
+		Node<E> justBeforeIt = head;
 		while (--index > 0) {
 			justBeforeIt = justBeforeIt.next;
 		}
 
 		Node<E> nodeRemoved = justBeforeIt.next;
-		if (justBeforeIt.next == last) {
-			last = justBeforeIt.next.next;
+		if (justBeforeIt.next == tail) {
+			tail = justBeforeIt.next.next;
 		}
 		justBeforeIt.next = justBeforeIt.next.next;
 
@@ -208,7 +220,7 @@ public class LinkedList<E> implements Iterable<E> {
 	}
 
 	public void setValueAtIndex(int index, E value) {
-		Node<E> result = first;
+		Node<E> result = head;
 		while (index >= 0) {
 			if (result == null) {
 				throw new NoSuchElementException();
@@ -244,7 +256,7 @@ public class LinkedList<E> implements Iterable<E> {
 	}
 
 	public class ListIterator implements Iterator<E> {
-		protected Node<E> nextNode = first;
+		protected Node<E> nextNode = head;
 		protected Node<E> currentNode = null;
 		protected Node<E> prevNode = null;
 
@@ -269,8 +281,8 @@ public class LinkedList<E> implements Iterable<E> {
 			if (currentNode == null || currentNode == prevNode) {
 				throw new IllegalStateException();
 			}
-			if (currentNode == first) {
-				first = nextNode;
+			if (currentNode == head) {
+				head = nextNode;
 			} else {
 				prevNode.next = nextNode;
 			}
@@ -286,7 +298,7 @@ public class LinkedList<E> implements Iterable<E> {
 
 	public void sort(Comparator<E> comparator) {
 		PriorityQueue<E> priorityQueue = new LinkedHeap<E>(comparator);
-		while (first != null) {
+		while (head != null) {
 			priorityQueue.enqueue(getFirst());
 			removeFirst();
 		}
@@ -316,7 +328,7 @@ public class LinkedList<E> implements Iterable<E> {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("[");
-		Node<E> node = first;
+		Node<E> node = head;
 		while (node != null) {
 			if (node.value == null) {
 				sb.append("null");
@@ -328,4 +340,19 @@ public class LinkedList<E> implements Iterable<E> {
 		sb.append("]");
 		return sb.toString();
 	}
+
+	public LinkedList<E> tail() {
+		LinkedList<E> l =new LinkedList<E>();
+		l.appendLast(this.tail.value);
+		return l;
+	}
+
+	public LinkedList<Integer> add(int n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public static <E> LinkedList<E> emptyList(){
+        return null;
+    }
 }
